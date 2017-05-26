@@ -11,10 +11,12 @@ function _update()
 		if [ "${remark}" != "" ];then
 			continue
 		fi
-		go get -u $line
+		echo "go get -u ${line}"
+		go get -u ${line}
+		echo "go install -v ${line}"
 		go install -v $line
 	done < ${pkgfile}
 }
 
-_update() $@
+_update $@
 
