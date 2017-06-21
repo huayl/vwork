@@ -6,6 +6,7 @@ export GOROOT=/usr/local/go
 export GOPATH=$HOME/vwork
 export GOBIN=$HOME/vwork/bin
 export GOSBIN=$HOME/vwork/sbin
+export PMWEB=github.com
 export PMMAIN=huayl
 export PMNAME=test
 

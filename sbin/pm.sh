@@ -21,7 +21,7 @@ _setpro() {
 _mainpath() {
 	local target=$GOPATH
 	if [[ "$1" != "" ]]; then
-		target=$GOPATH/src/github.com/$PMMAIN/$1
+		target=$GOPATH/src/$PMWEB/$PMMAIN/$1
 		_setpro $1
 	else
 		target=$GOPATH
