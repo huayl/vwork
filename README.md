@@ -1,3 +1,8 @@
 # vwork #
 
-### add vwork/sbin/init.shµ½.bash_profile
+## Linux: add vwork/sbin/init.sh in ~/.bash_profile
+>
+if [ -f ~/vwork/sbin/init.sh ]; then
+	. ~/vwork/sbin/init.sh
+fi
+
