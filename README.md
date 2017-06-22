@@ -2,6 +2,7 @@
 ---
 ## 使用方法
 目前只在linux下使用
+---
 1.添加vwork/sbin/init.sh in ~/.bash_profile
 ```shell
 if [ -f ~/vwork/sbin/init.sh ]; then
@@ -20,4 +21,8 @@ export PMWEB=github.com    ##源代码网址
 export PMMAIN=huayl        ##公司名字或者个人作者名字
 export PMNAME=test         ##项目名字
 ```
-
+3.根据实际需要修改vwork/config/pkg.ini，加入该配置文件后，执行update.sh会自动更新
+```shell
+github.com/golang/protobuf/proto
+github.com/golang/protobuf/protoc-gen-go
+```
