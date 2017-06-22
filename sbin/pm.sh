@@ -33,17 +33,17 @@ _mainpath() {
 	echo $target
 }
 
-pmhome() {
+pmh() {
 	__doc__ 跳回到主目录或某个项目
 	pmenv
 	cd $(_mainpath $@)
 }
 
-_pmhome() {
+_pmh() {
 	_file_completion $GOPATH
 }
 
-complete -F _pmhome -o filenames pmhome
+complete -F _pmh -o filenames pmh
 
 # 如果当前目录在GOPATH目录下,自动更新环境变量
 if [[ "$pwd" == "$GOPATH" ]]; then
