@@ -21,7 +21,7 @@ export PMWEB=github.com    ##源代码网址
 export PMMAIN=huayl        ##公司名字或者个人作者名字
 export PMNAME=test         ##项目名字
 ```
-###　3.包管理说明
+### 3.包管理说明
 vwork采用govendor工具管理project依赖的包.
 
 * Project初始化:
