@@ -34,8 +34,6 @@ govendor init
 ```shell
 govendor list -v fmt
 
-govendor add +external
-
 govendor add  inport_out_packagename
 ```
 
