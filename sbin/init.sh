@@ -1,3 +1,3 @@
 #!/bin/bash
 
-source $HOME/vwork/env.sh
+source $HOME/vwork/sbin/env.sh

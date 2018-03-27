@@ -1,52 +1,68 @@
 #!/bin/bash
 
-source $GOSBIN/completion.sh
 
-__doc__() {
-	echo -n
-}
-
-pmenv() {
-	__doc__ 设置环境变量
-
+function pmenv() 
+{
 	export PM_INIT=1
 }
 
-_setpro() {
+function _setpro() 
+{
 	if [[ "$1" != "../" ]]; then
 		export PMNAME=$1
 	fi
 }
 
-_mainpath() {
+function _file_completion() 
+{
+	local cur
+	COMPREPLY=()
+	cur=${COMP_WORDS[COMP_CWORD]}
+	case "$cur" in
+		*)
+		local files
+		if [ "$cur"x = ""x ]; then
+			files=$(ls $1/$cur)
+		else 
+			files=$(ls $(dirname $1/$cur))
+		fi
+		COMPREPLY=( $( compgen -W "$files" -- $cur ) );;
+	esac
+}
+
+function _mainpath() 
+{
 	local target=$GOPATH
-	if [[ "$1" != "" ]]; then
-		target=$GOPATH/src/github.com/$PMMAIN/$1
+	local cutpath=`echo $1 | cut -b 1-6`
+	
+	if [[ "$cutpath"x = "gitlab"x  || "$cutpath"x = "github"x ]]; then
+		target=$GOPATH/src/$cutpath.com/$2
+	elif [ "$cutpath"x != ""x ]; then
+		target=$GOPATH/src/$PMWEB/$PMMAIN/$1
 		_setpro $1
 	else
 		target=$GOPATH
 		_setpro $PMMAIN
 	fi
-	if [[ "$1" == "../" ]]; then
-		target=$pwd/../
-	fi
+	
 	echo $target
 }
 
-pmhome() {
-	__doc__ 跳回到主目录或某个项目
+function pmh() 
+{
 	pmenv
 	cd $(_mainpath $@)
 }
 
-_pmhome() {
+function _pmh() 
+{
 	_file_completion $GOPATH
 }
 
-complete -F _pmhome -o filenames pmhome
+complete -F _pmh -o filenames pmh
 
-# 如果当前目录在GOPATH目录下,自动更新环境变量
-if [[ "$pwd" == "$GOPATH" ]]; then
+#set env
+if [ "$pwd"x = "$GOPATH"x ]; then
 	pmenv
 fi
 

@@ -1,19 +1,20 @@
 #!/bin/bash
 
-source $GOSBIN/env.sh
+source $GOPATH/env.sh
 
-function _install() {
-	go get -u $1
-	go install -v $1
+function _update()
+{
+	appfile=$GOPATH/config/app.ini
+	while read line
+	do
+		remark=`echo ${line}	| grep "^\s*#"`
+		if [ "${remark}" != "" ];then
+			continue
+		fi
+		echo "govendor update packages in ${line}"
+		pmh ${line}
+		govendor fetch -v +vendor
+	done < ${appfile}
 }
 
-_install google.golang.org/grpc
-_install github.com/golang/protobuf/proto
-_install github.com/golang/protobuf/protoc-gen-go
-_install github.com/spf13/cobra/cobra
-_install github.com/hashicorp/consul
-_install github.com/hashicorp/consul-template
-_install github.com/nsf/gocode
-_install github.com/rogpeppe/godef
-_install golang.org/x/tools/cmd/goimports
-
+_update $@
