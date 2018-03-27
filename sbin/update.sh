@@ -1,19 +1,18 @@
 #!/bin/bash
 
-source $GOPATH/env.sh
+source $GOPATH/sbin/env.sh
 
 function _update()
 {
-	appfile=$GOPATH/config/app.ini
+	appfile=$GOPATH/config/pkg.ini
 	while read line
 	do
 		remark=`echo ${line}	| grep "^\s*#"`
 		if [ "${remark}" != "" ];then
 			continue
 		fi
-		echo "govendor update packages in ${line}"
-		pmh ${line}
-		govendor fetch -v +vendor
+		echo "update packages in ${line}"
+		go get -u ${line}
 	done < ${appfile}
 }
 

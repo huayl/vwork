@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $GOPATH/env.sh
+source $GOPATH/sbin/env.sh
 
 function _install()
 {
