@@ -21,7 +21,7 @@ function _file_completion()
 	case "$cur" in
 		*)
 		local files
-		if [ "$cur"x = ""x ]; then
+		if [ "x$cur" = "x" ]; then
 			files=$(ls $1/$cur)
 		else 
 			files=$(ls $(dirname $1/$cur))
@@ -35,9 +35,22 @@ function _mainpath()
 	local target=$GOPATH
 	local cutpath=`echo $1 | cut -b 1-6`
 	
-	if [[ "$cutpath"x = "gitlab"x  || "$cutpath"x = "github"x ]]; then
+if [ "x$KAFKA_LOG4J_OPTS" = "x" ]; then
+    export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:$base_dir/../config/log4j.properties"
+fi
+
+if [ "x$KAFKA_HEAP_OPTS" = "x" ]; then
+    export KAFKA_HEAP_OPTS="-Xmx1G -Xms1G"
+fi
+
+
+
+	if [[ "$cutpath" = "gitlab"  || "$cutpath" = "github" ]]; then
 		target=$GOPATH/src/$cutpath.com/$2
-	elif [ "$cutpath"x != ""x ]; then
+	elif [ "$cutpath" = "root" ]; then
+		target=$GOPATH/src/$PMWEB/$2
+		_setpro $1
+	elif [ "x$cutpath" != "x" ]; then
 		target=$GOPATH/src/$PMWEB/$PMMAIN/$1
 		_setpro $1
 	else
